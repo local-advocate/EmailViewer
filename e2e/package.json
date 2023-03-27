@@ -1,0 +1,27 @@
+{
+  "name": "emailviewer-e2etest",
+  "version": "1.0.0",
+  "description": "Email Viewer - End to End Test",
+  "author": "Ruchit Patel <rpatel18@ucsc.edu>",
+  "license": "UNLICENSED",
+  "repository": "none",
+  "devDependencies": {
+    "dotenv": "*",
+    "express": "*",
+    "http-proxy-middleware": "*",
+    "jest": "*",
+    "puppeteer": "*",
+    "puppeteer-core": "*",
+    "supertest": "*"
+  },
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ]
+  },
+  "scripts": {
+    "build": "cd ../frontend && npm run build",
+    "e2e": "jest --testTimeout=10000 --runInBand --verbose --forceExit --detectOpenHandles",
+    "test": "(npm run build) && (npm run e2e)"
+  }
+}

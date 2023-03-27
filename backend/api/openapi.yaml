@@ -1,0 +1,185 @@
+#
+# Email Viewer Backend
+#
+
+openapi: '3.0.3'
+
+info:
+  description: Email Viewer Backend
+  version: 0.1.0
+  title: Email Viewer Backend
+
+servers:
+  - url: http://localhost:3010/v0
+
+paths:
+  /dummy:
+    get:
+      description: Dummy Endpoint
+      responses:
+        200:
+          description: Succesful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DummyResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /login:
+    post:
+      description: Login
+      requestBody:
+        description: Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+      responses:
+        200:
+          description: Emails Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+    
+  /mail:
+    get:
+      security:
+        - bearerAuth: []         
+      description: Returns all emails
+      responses:
+        401:
+          description: Unauthorised
+        200:
+          description: Email Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MailboxMail'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnexpectedError'
+
+components:
+  schemas:
+    Error:
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+      required:
+        - code
+        - message
+
+    UnexpectedError:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
+    DummyResponse:
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        accessToken:
+          type: string
+        avatar:
+          type: string
+      required:
+        - name
+        - accessToken
+        - avatar
+
+    Credentials:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    MailboxMail:
+      type: array
+      items:
+        $ref: '#/components/schemas/Email'
+
+    # for GET
+    Email:
+      type: object
+      properties:
+        avatar:
+          type: string
+        from:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+              format: email
+        to:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+              format: email
+        subject:
+          type: string
+        body:
+          type: string
+        received:
+          type: string
+        read:
+          type: string
+        starred:
+          type: string
+      required:
+        - avatar
+        - from
+        - to
+        - subject
+        - received
+        - body
+        - read
+        - starred
+
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
