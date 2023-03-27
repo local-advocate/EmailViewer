@@ -6,8 +6,8 @@ A very simple and basic Email viewer. Users have the ability to sign in and view
 * Technology stack: TypeScript, ExpressJS, NodeJS, React, PostgreSQL, OpenAPI.
 
 ## Demonstration
-YouTube Link:   
-[![EmailViewer Demonstration](https://github.com/local-advocate/EmailViewer/blob/main/EmailViewer.PNG)]( "EmailViewer Demonstration")
+YouTube Link: https://www.youtube.com/watch?v=I-GsJtAjRW0  
+[![EmailViewer Demonstration](https://github.com/local-advocate/EmailViewer/blob/main/EmailViewer.PNG)](https://www.youtube.com/watch?v=I-GsJtAjRW0 "EmailViewer Demonstration")
 
 ## Scripts
 The following commands are meant to be run from the most parent directory of this repository.
